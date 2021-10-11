@@ -124,8 +124,7 @@ def send_audio(ws):
         logger.debug("try to send audio length {}, from bytes [{},{})".format(len(body), index, end))
         ws.send(body, websocket.ABNF.OPCODE_BINARY)
         index = end
-        # time.sleep(chunk_ms / 1000.0)
-        time.sleep(3*60)
+        time.sleep(chunk_ms / 1000.0)
 
     # for i in range(10):
     #     print(i)

@@ -2,7 +2,7 @@
 """
 实时流式识别
 需要安装websocket-client库
-使用方式 python realtime_asr.py 16k-0.pcm
+使用方式 python tencent_asr.py
 """
 import base64
 import datetime

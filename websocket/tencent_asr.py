@@ -47,8 +47,8 @@ def create_url():
     """
     timestamp = int(round(time.time()))
     print(timestamp)
-    AppKey = "3b82efec-a77c-46cd-a2c2-8df9bbd1d1c1"
-    AccessToken = "fc58e2b228324573a0d502b88d2c11d4"
+    AppKey = ""
+    AccessToken = ""
     try:
         url = 'wss://gw.tvs.qq.com/ws/ai/asr'
         signature_origin = "appkey=" + AppKey + "&timestamp=" + str(timestamp)
@@ -78,23 +78,18 @@ def send_start_params(ws):
     :param websocket.WebSocket ws:
     :return:
     """
-    req = {"type": "start",
-           "data": {"engineType": "yxw",
-                    "format": "pcm",
-                    "sampleRate": "16K",
-                    "channel": 1,
-                    "domain": 400,
-                    "useCloudVad":False,
-                    "vadThreshold": 500,
-                    "context": {
-                        "hotWords": [
-                            {
-                                "word": "背景"
-                            }
-                        ]
-                    }
-                    }
-           }
+    req = {
+        "type": "start",
+        "data": {
+                "engineType": "yxw",
+                "format": "pcm",
+                "sampleRate": "16K",
+                "channel": 1,
+                "domain": 400,
+                "useCloudVad": False,
+                "vadThreshold": 500
+        }
+    }
     body = json.dumps(req)
     ws.send(body, websocket.ABNF.OPCODE_TEXT)
     logger.info("send START frame with params:" + body)

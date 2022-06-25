@@ -85,11 +85,16 @@ def send_start_params(ws):
         "data": {
                 "engineType": "yxw",
                 "format": "pcm",
-                "sampleRate": "16K",
+                "sampleRate": "8K",
                 "channel": 1,
-                "domain": 400,
+                "domain": 120,
                 "useCloudVad": False,
-                "vadThreshold": 500
+                "vadThreshold": 500,
+                "needPunc": True,
+                "transNum": True,
+                "context": {
+                  "hotWords":[]
+               }
         }
     }
     body = json.dumps(req)
@@ -103,7 +108,7 @@ def send_audio(ws):
     :param  websocket.WebSocket ws:
     :return:
     """
-    file_name = "audio/16k.pcm"
+    file_name = "audio/8k.pcm"
     chunk_ms = 160  # 160ms的录音
     chunk_len = int(16000 * 2 / 1000 * chunk_ms)
     with open(file_name, 'rb') as f:

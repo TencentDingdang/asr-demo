@@ -1,7 +1,8 @@
+#! /usr/bin env python3
 # -*- coding: utf-8 -*-
 """
 实时流式识别
-需要安装websocket-client库
+需要安装websocket-client库: pip3 install websocket-client
 使用方式 python tencent_asr.py
 """
 import base64
@@ -51,6 +52,7 @@ def create_url():
     AccessToken = ""
     try:
         url = 'wss://gw.tvs.qq.com/ws/ai/asr'
+        # 私有化场景请使用ws协议：ws://192.168.1.2:8080/ws/ai/asr
         signature_origin = "appkey=" + AppKey + "&timestamp=" + str(timestamp)
         print(signature_origin)
         # 进行hmac-sha256进行加密
@@ -193,7 +195,7 @@ def on_error(ws, error):
     ws.close
 
 
-def on_close(ws):
+def on_close(ws, close_status_code, close_msg):
     """
     Websocket关闭
     :param websocket.WebSocket ws:
@@ -215,5 +217,4 @@ if __name__ == "__main__":
                                     on_message=on_message,  # 接收消息的回调
                                     on_error=on_error,  # 库遇见错误的回调
                                     on_close=on_close)  # 关闭后的回调
-    ws_app.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE, "check_hostname": False, "ssl_version": ssl.PROTOCOL_TLSv1},
-                   ping_interval=0.01)
+    ws_app.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE, "check_hostname": False}, ping_interval=0.01)
